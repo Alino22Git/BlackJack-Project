@@ -9,7 +9,14 @@ public class Player {
     }
 
     public void clearHand(){
-
+cardHand.clear();
     }
 
+    public ArrayList<Cards> getCardHand() {
+        return cardHand;
+    }
+
+    public void setCardHand(Cards card) {
+        this.cardHand.add(card);
+    }
 }

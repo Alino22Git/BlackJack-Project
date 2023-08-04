@@ -5,8 +5,8 @@ public class CardDealer {
     private ArrayList<Cards> cardsOnTheTable = new ArrayList<>();
 
     private void dealCards(Player p, List<Cards> cardDeck){
-        p.cardHand.add(drawCard(cardDeck));
-        p.cardHand.add(drawCard(cardDeck));
+        p.setCardHand(drawCard(cardDeck));
+        p.setCardHand(drawCard(cardDeck));
     }
 
     public Cards drawCard(List<Cards> cardDeck){
