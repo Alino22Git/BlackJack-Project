@@ -7,11 +7,12 @@ public class CardDeck {
 
     public CardDeck() {
         generateCardDeck();
+        shuffleCardDeck();
     }
 
     public void generateCardDeck() {
         int x=0;
-        while(x<4) {
+        while(x<6) {
             for (int i = 1; i <= 52; i++) {
                 cardDeck.add(new Cards(Cards.getCardNumber(i), Cards.getCardSign(i)));
             }
@@ -19,7 +20,7 @@ public class CardDeck {
         }
     }
 
-    public void shuffleCardDeck(List<Cards> cardDeck){
+    public void shuffleCardDeck(){
         Collections.shuffle(cardDeck);
     }
 
