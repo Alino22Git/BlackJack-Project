@@ -17,4 +17,25 @@ public abstract class CardOwner {
             }
         }
     }
+    public boolean is21(){
+        sumCardValues();
+        return cardsValue==21;
+    }
+    public boolean isBusted() {
+        sumCardValues();
+        return cardsValue > 21;
+    }
+
+    public int getCardsValue() {
+        sumCardValues();
+        return cardsValue;
+    }
+
+    public ArrayList<Cards> getCards() {
+        return cards;
+    }
+
+    public void setCards(Cards card) {
+        this.cards.add(card);
+    }
 }

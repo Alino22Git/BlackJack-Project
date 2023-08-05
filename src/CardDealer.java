@@ -1,10 +1,8 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CardDealer extends CardOwner{
 
-    private List<Cards> cardsOnTheTable = new ArrayList<>();
     private List<Cards> cardDeckOfDealer = new ArrayList<>();
 
     public void dealCards(Player p, int number) {
@@ -22,52 +20,38 @@ public class CardDealer extends CardOwner{
     }
 
     public void drawUntil17() {
-        //STILL IN WORK
-        int i = 0;
-        while (i < 1) {
-            cardsOnTheTable.add(drawCard());
-            i++;
-        }
         showAllCards();
+        while(!is17()){
+            cards.add(drawCard());
+            showAllCards();
+        }
     }
-
     private void showOneCard() {
-        System.out.println("Dealers " + cardsOnTheTable.get(0) + " (AND " + cardsOnTheTable.get(1) + " )");
+        System.out.println("Dealers " + cards.get(0) + " (AND " + cards.get(1) + " )");
     }
 
     public void showAllCards() {
-        System.out.println(cardsOnTheTable);
+        System.out.println("Cards of the Dealer: "+cards);
     }
-
     public void restockDealerHand() {
         checkCardDeckNotEmpty(2);
-        cardsOnTheTable.add(drawCard());
-        cardsOnTheTable.add(drawCard());
+        cards.add(drawCard());
+        cards.add(drawCard());
         showOneCard();
     }
-
     private void checkCardDeckNotEmpty(int number) {
         if (cardDeckOfDealer.size() < number) {
             cardDeckOfDealer = new CardDeck().getCardDeck();
         }
     }
-
     public void clearTable() {
-        cardsOnTheTable.clear();
+        cards.clear();
     }
-
-
-
-
     public void setCardDeckOfDealer(List<Cards> cardDeckOfDealer) {
         this.cardDeckOfDealer = cardDeckOfDealer;
     }
-
-    public int getCardsValue() {
-        return cardsValue;
-    }
-
-    public List<Cards> getCardsOnTheTable() {
-        return cardsOnTheTable;
+    public boolean is17(){
+        sumCardValues();
+        return cardsValue>=17;
     }
 }
