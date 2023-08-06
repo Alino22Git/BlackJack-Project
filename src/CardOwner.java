@@ -10,13 +10,26 @@ public abstract class CardOwner {
         }
         cardsValue = 0;
         for (Cards c : this.cards) {
-            if (c.cardNumber.equals("King") || c.cardNumber.equals("Ace") || c.cardNumber.equals("Queen") || c.cardNumber.equals("Jack")) {
+            if (c.cardNumber.equals("King") || c.cardNumber.equals("Queen") || c.cardNumber.equals("Jack")) {
                 cardsValue += 10;
+            }else if(c.cardNumber.equals("Ace")){
+                cardsValue+=11;
             } else {
                 cardsValue += Integer.parseInt(c.cardNumber);
             }
         }
+        aceOneOrEleven();
     }
+
+    private void aceOneOrEleven() {
+           int aces= (int) this.cards.stream().filter(card -> card.cardNumber.equals("Ace")).count();
+           for(int i=0;i<aces;i++){
+               if(cardsValue>21){
+                   cardsValue-=10;
+               }
+           }
+    }
+
     public boolean is21(){
         sumCardValues();
         return cardsValue==21;

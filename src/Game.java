@@ -11,6 +11,7 @@ public class Game {
             prepareRound(dealer, p1);
             startRound(dealer, p1);
             showResults(dealer, p1);
+            clearCards(dealer, p1);
             cleanTerminal();
         }
         System.out.println("Thank you for playing my game!");
@@ -41,6 +42,7 @@ public class Game {
             System.out.println("Dealer: " + dealer.getCards());
             System.out.println("Player: " + p1.getCards());
             System.out.println("Dealer has a 'Black Jack'!");
+            return;
         }
         System.out.println("The Dealer has dealt all cards.\n");
     }
@@ -78,8 +80,7 @@ public class Game {
         if(p.isBusted()) {
             return;
         } else if(dealer.isBusted()){
-            System.out.print("Dealer busted with ");
-            dealer.showAllCards();
+            System.out.println("Dealer busted with "+dealer.getCards());
             return;
         }
         if (dealer.getCardsValue() < p.getCardsValue()) {
@@ -89,7 +90,6 @@ public class Game {
         } else {
             System.out.println("It is a draw between the Dealer and the Player!");
         }
-        clearCards(dealer, p);
     }
 
     private static void clearCards(CardDealer dealer, Player p) {
