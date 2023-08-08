@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Game {
     public static void startGame() {
-        String exitCondition = "start";
+        String exitCondition;
         Player p1 = new Player("Alen");
         CardDealer dealer = new CardDealer();
         exitCondition = continueGame();
