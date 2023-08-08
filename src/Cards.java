@@ -28,6 +28,7 @@ public class Cards{
 
     @Override
     public String toString() {
-        return "Card: "+cardNumber+" "+cardSign;
+       // return "["+cardNumber+" "+cardSign+"]";
+        return cardNumber+" "+cardSign;
     }
 }

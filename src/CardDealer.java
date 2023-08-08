@@ -27,11 +27,12 @@ public class CardDealer extends CardOwner{
         }
     }
     private void showOneCard() {
-        System.out.println("Dealers " + cards.get(0) + " (AND " + cards.get(1) + " )");
+        System.out.println("Dealers Card: " + cards.get(0) + " (AND " + cards.get(1) + ")");
     }
 
     public void showAllCards() {
-        System.out.println("Cards of the Dealer: "+cards);
+        System.out.print("Dealers Cards: ");
+        super.showAllCards();
     }
     public void restockDealerHand() {
         checkCardDeckNotEmpty(2);
@@ -54,4 +55,6 @@ public class CardDealer extends CardOwner{
         sumCardValues();
         return cardsValue>=17;
     }
+
+
 }

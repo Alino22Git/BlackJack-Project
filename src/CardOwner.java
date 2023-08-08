@@ -51,4 +51,10 @@ public abstract class CardOwner {
     public void setCards(Cards card) {
         this.cards.add(card);
     }
+    public void showAllCards() {
+        for (Cards card : cards) {
+            System.out.print(card + " ");
+        }
+        System.out.println(" ");
+    }
 }

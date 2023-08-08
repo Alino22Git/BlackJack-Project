@@ -8,4 +8,8 @@ public class Player extends CardOwner{
         return name;
     }
 
+    public void showAllCards() {
+        System.out.print("Players Cards: ");
+        super.showAllCards();
+    }
 }
