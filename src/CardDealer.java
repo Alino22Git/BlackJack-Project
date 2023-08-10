@@ -27,7 +27,8 @@ public class CardDealer extends CardOwner{
         }
     }
     private void showOneCard() {
-        System.out.println("Dealers Card: " + cards.get(0) + " (AND " + cards.get(1) + ")");
+        //System.out.println("Dealers Card: " + cards.get(0) + " (AND " + cards.get(1) + ")");
+        System.out.println("Dealers Card: " + cards.get(0));
     }
 
     public void showAllCards() {

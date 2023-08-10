@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CardDeck {
-    private List<Cards> cardDeck=new ArrayList<>();
+    private final List<Cards> cardDeck=new ArrayList<>();
 
     public CardDeck() {
         generateCardDeck();
