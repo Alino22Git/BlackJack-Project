@@ -3,10 +3,11 @@ import java.util.Scanner;
 
 public class Game {
     public static void startGame() {
-        Token token=new Token(100);
+        Token token = new Token(100);
         Player p1 = new Player("Alen");
         CardDealer dealer = new CardDealer();
         String exitCondition;
+
         do {
             setBet(token);
             prepareRound(dealer, p1);
@@ -22,12 +23,8 @@ public class Game {
             //cleanTerminal();
             exitCondition = continueGame();
         } while (exitCondition.equals("continue"));
-        if (token.getBudget() <= 0) {
-            System.out.println("You lost the game");
-        } else {
-            System.out.println("You quit the game of a total budget of: " + token.getBudget());
-        }
-        System.out.println("Thank you for playing my game!");
+
+        endScreen(token);
     }
 
     private static void setBet(Token t) {
@@ -41,24 +38,11 @@ public class Game {
                 System.out.print("Your bet can not be higher than your budget!\n");
             } else if (input < 0) {
                 System.out.print("Your bet can not be negative!\n");
-            }else if(input<10){
+            } else if (input < 10) {
                 System.out.print("Your bet must be at least 10 tokens high!\n");
             }
         } while (input < 0 || input > t.getBudget() || input < 10);
         t.setActiveBet(input);
-    }
-
-    private static String continueGame() {
-        Scanner scan = new Scanner(System.in);
-        String input;
-        System.out.print("Do you want to start a game?\nWrite either 'exit' or 'continue' to continue the game:");
-        do {
-            input = scan.nextLine();
-            if (!input.equals("continue") && !input.equals("exit")) {
-                System.out.print("Wrong Input! Try again:");
-            }
-        } while (!input.equals("continue") && !input.equals("exit"));
-        return input;
     }
 
     private static void prepareRound(CardDealer dealer, Player p) {
@@ -67,6 +51,19 @@ public class Game {
         dealer.dealCards(p, 2);
         p.showAllCards();
         //System.out.println("The Dealer has dealt all cards.\n");
+    }
+
+    private static String continueGame() {
+        Scanner scan = new Scanner(System.in);
+        String input;
+        System.out.print("Do you want to continue the game?\nWrite either 'exit' or 'continue':");
+        do {
+            input = scan.nextLine();
+            if (!input.equals("continue") && !input.equals("exit")) {
+                System.out.print("Wrong Input! Try again:");
+            }
+        } while (!input.equals("continue") && !input.equals("exit"));
+        return input;
     }
 
     private static boolean hasSomeoneBJ(CardDealer dealer, Player p, Token t) {
@@ -80,6 +77,7 @@ public class Game {
                 System.out.println("The Dealer wins with a 'BlackJack'.");
                 t.loseBet();
             } else {
+                dealer.showAllCards();
                 System.out.println("The Player wins with a 'BlackJack'");
                 t.wonBlackJack();
             }
@@ -90,20 +88,25 @@ public class Game {
     }
 
     private static boolean startRound(CardDealer dealer, Player p1, Token t) {
-        char status = 'h';
-        while (status == 'h') {
-            status = playerOptions(dealer, p1);
+        char status = 'x';
+        do {
+            status = playerOptions(dealer, p1, status, t);
+
             if (status == 'b') {
-                System.out.println("Player: " + p1.getName() + " got 'Busted'!\n");
+                System.out.println("Player: " + p1.getName() + " is 'Busted'!\n");
                 t.loseBet();
                 return false;
             }
-        }
+        } while (status == 'h');
         return true;
     }
 
-    private static char playerOptions(CardDealer dealer, Player p) throws IllegalArgumentException {
-        System.out.println("Do you want to hit (h) or to stay (s)");
+    private static char playerOptions(CardDealer dealer, Player p, char status, Token t) throws IllegalArgumentException {
+        if (status == 'x' && t.getBudget() >= t.getActiveBet()) {
+            System.out.println("Do you want to hit(h), stay(s) or double(d):");
+        } else {
+            System.out.println("Do you want to hit(h) or stay(s):");
+        }
         Scanner scan = new Scanner(System.in);
         char input = scan.next().trim().charAt(0);
         if (Objects.equals(input, 'h')) {
@@ -111,8 +114,16 @@ public class Game {
                 return 'b';
             }
             return 'h';
-        } else if (Objects.equals(input, 's')) return 's';
-        else {
+        } else if (Objects.equals(input, 's')) {
+            return 's';
+        } else if (Objects.equals(input, 'd') && status == 'x' && t.getBudget() >= t.getActiveBet()) {
+            t.setActiveBet(t.getActiveBet());
+            System.out.println("Player: " + p.getName() + " has 'Doubled'!\n");
+            if (playerHit(dealer, p)) {
+                return 'b';
+            }
+            return 'd';
+        } else {
             throw new IllegalArgumentException("Wrong Input at 'playerOptions()'");
         }
     }
@@ -153,4 +164,13 @@ public class Game {
     }
 
     //private static void cleanTerminal() {}
+
+    private static void endScreen(Token token) {
+        if (token.getBudget() <= 0) {
+            System.out.println("You lost the game");
+        } else {
+            System.out.println("You quit the game of a total budget of: " + token.getBudget());
+        }
+        System.out.println("Thank you for playing my game!");
+    }
 }
