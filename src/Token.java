@@ -22,7 +22,7 @@ public class Token {
     }
 
     public void wonBlackJack() {
-        budget = budget + (activeBet * 3) / 2;
+        budget += activeBet + (activeBet * 3) / 2;
         activeBet = 0;
     }
 
