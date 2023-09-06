@@ -10,7 +10,7 @@ public class CardDeck {
         shuffleCardDeck();
     }
 
-    public void generateCardDeck() {
+    public void generateCardDeck() { //creating a deck of 6*52 Cards (BlackJack is usually played with this amount of cards)
         int x = 0;
         while (x < 6) {
             for (int i = 1; i <= 52; i++) {
@@ -22,7 +22,7 @@ public class CardDeck {
 
     public void shuffleCardDeck() {
         Collections.shuffle(cardDeck);
-    }
+    }//shuffles deck
 
     public List<Cards> getCardDeck() {
         return cardDeck;

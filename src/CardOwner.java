@@ -10,32 +10,32 @@ public abstract class CardOwner {
         }
         cardsValue = 0;
         for (Cards c : this.cards) {
-            if (c.cardNumber.equals("King") || c.cardNumber.equals("Queen") || c.cardNumber.equals("Jack")) {
+            if (c.cardNumber.equals("King") || c.cardNumber.equals("Queen") || c.cardNumber.equals("Jack")) { //the 3 cards have a value of 10
                 cardsValue += 10;
-            } else if (c.cardNumber.equals("Ace")) {
+            } else if (c.cardNumber.equals("Ace")) { //Ace has a value of 1 OR 11 depends on the value of the player
                 cardsValue += 11;
             } else {
-                cardsValue += Integer.parseInt(c.cardNumber);
+                cardsValue += Integer.parseInt(c.cardNumber);//Ex. String "8" into int 8
             }
         }
         aceOneOrEleven();
     }
 
     private void aceOneOrEleven() {
-        int aces = (int) this.cards.stream().filter(card -> card.cardNumber.equals("Ace")).count();
+        int aces = (int) this.cards.stream().filter(card -> card.cardNumber.equals("Ace")).count(); //searches for aces in the hand of the player/dealer
         for (int i = 0; i < aces; i++) {
-            if (cardsValue > 21) {
-                cardsValue -= 10;
+            if (cardsValue > 21) { //if the hand (dealer/player) is over 21, aces count as 1 (else 11)
+                cardsValue -= 10; //11-10=1
             }
         }
     }
 
-    public boolean is21() {
+    public boolean is21() {//checks if the card value is 21
         sumCardValues();
         return cardsValue == 21;
     }
 
-    public boolean isBusted() {
+    public boolean isBusted() {//checks if the card value is over 21
         sumCardValues();
         return cardsValue > 21;
     }

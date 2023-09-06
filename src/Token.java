@@ -16,11 +16,13 @@ public class Token {
         activeBet = 0;
     }
 
+    //activeBet * 2 because the bet of the player leaves his budget after starting the round (+ activeBet * 1 would be like at the start of the game)
     public void wonBet() {
         budget += activeBet * 2;
         activeBet = 0;
     }
 
+    //BlackJack (card value of 21 at the start of the round) get paid 3:2
     public void wonBlackJack() {
         budget += activeBet + (activeBet * 3) / 2;
         activeBet = 0;
